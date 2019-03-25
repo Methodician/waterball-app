@@ -1,0 +1,11 @@
+<svg #svg [attr.width]="_options.width" [attr.height]="_options.height">
+  <g [wbZoomable]="svg">
+    <g [wb-link-visual]="link" *ngFor="let link of links"></g>
+    <g
+      [wb-node-visual]="node"
+      *ngFor="let node of nodes"
+      [wbDraggable]="node"
+      [draggableInGraph]="graph"
+    ></g>
+  </g>
+</svg>
