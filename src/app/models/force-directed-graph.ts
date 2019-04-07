@@ -23,6 +23,21 @@ export class ForceDirectedGraph {
     this.initSimulation(options);
   }
 
+  connectNodes(source, target) {
+    let link;
+
+    if (!this.nodes[source] || !this.nodes[target]) {
+      throw new Error('One of the nodes does not exist');
+    }
+
+    link = new Link(source, target);
+    this.simulation.stop();
+    this.links.push(link);
+    this.simulation.alphaTarget(0.3).restart();
+
+    this.initLinks();
+  }
+
   initNodes() {
     if (!this.simulation) {
       throw new Error('simulation was not initialized yet');
@@ -36,10 +51,12 @@ export class ForceDirectedGraph {
       throw new Error('simulation was not initialized yet');
     }
 
-    // Initializing the links force simulation
     this.simulation.force(
       'links',
-      d3.forceLink(this.links).strength(FORCES.LINKS),
+      d3
+        .forceLink(this.links)
+        .id(d => d['id'])
+        .strength(FORCES.LINKS),
     );
   }
 
@@ -52,10 +69,20 @@ export class ForceDirectedGraph {
     if (!this.simulation) {
       const ticker = this.ticker;
 
-      // Creating the force simulation and defining the charges
       this.simulation = d3
         .forceSimulation()
-        .force('charge', d3.forceManyBody().strength(FORCES.CHARGE));
+        .force(
+          'charge',
+          d3.forceManyBody().strength(d => FORCES.CHARGE * d['r']),
+        )
+        .force(
+          'collide',
+          d3
+            .forceCollide()
+            .strength(FORCES.COLLISION)
+            .radius(d => d['r'] + 5)
+            .iterations(2),
+        );
 
       // Connecting the d3 ticker to an angular event emitter
       this.simulation.on('tick', function() {
