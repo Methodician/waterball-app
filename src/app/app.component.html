@@ -1,5 +1,79 @@
-<pre>
+<!-- <pre>
   {{ testData | async | json }}
-</pre>
+</pre> -->
+
+<table mat-table [dataSource]="testData | async" class="mat-elevation-z8">
+  <ng-container matColumnDef="timestamp">
+    <th mat-header-cell *matHeaderCellDef>timestamp</th>
+    <td mat-cell *matCellDef="let element">{{ element.timestamp }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="distance">
+    <th mat-header-cell *matHeaderCellDef>distance</th>
+    <td mat-cell *matCellDef="let element">{{ element.distance }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="humidity">
+    <th mat-header-cell *matHeaderCellDef>humidity</th>
+    <td mat-cell *matCellDef="let element">{{ element.humidity }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="temperature">
+    <th mat-header-cell *matHeaderCellDef>temperature</th>
+    <td mat-cell *matCellDef="let element">{{ element.temperature }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="pressure">
+    <th mat-header-cell *matHeaderCellDef>pressure</th>
+    <td mat-cell *matCellDef="let element">{{ element.pressure }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="lux">
+    <th mat-header-cell *matHeaderCellDef>lux</th>
+    <td mat-cell *matCellDef="let element">{{ element.lux }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="red">
+    <th mat-header-cell *matHeaderCellDef>red</th>
+    <td mat-cell *matCellDef="let element">{{ element.red }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="green">
+    <th mat-header-cell *matHeaderCellDef>green</th>
+    <td mat-cell *matCellDef="let element">{{ element.green }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="blue">
+    <th mat-header-cell *matHeaderCellDef>blue</th>
+    <td mat-cell *matCellDef="let element">{{ element.blue }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="uptime">
+    <th mat-header-cell *matHeaderCellDef>uptime</th>
+    <td mat-cell *matCellDef="let element">{{ element.uptime }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="freeheap">
+    <th mat-header-cell *matHeaderCellDef>freeheap</th>
+    <td mat-cell *matCellDef="let element">{{ element.freeheap }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<!-- {
+  -"blue": 21,
+  -"distance": 53,
+  -"freeheap": 265868,
+  -"green": 35,
+  -"humidity": 22,
+  -"lux": 21,
+  -"pressure": 1017,
+  -"red": 58,
+  -"temperature": 22,
+  -"timestamp": 1552881682,
+  -"uptime": 254
+}, -->
 
 <router-outlet></router-outlet>
