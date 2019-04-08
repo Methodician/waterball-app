@@ -10,32 +10,19 @@ export class AppComponent {
   title = 'WaterBall';
   testData: Observable<any[]>;
   displayedColumns: string[] = [
-    'timestamp',
-    'distance',
-    'lux',
-    'red',
+    'timestamp', // unix seconds since epoch
+    'distance', // cm
+    'lux', // lux
+    'red', // not clear on units
     'green',
     'blue',
-    'humidity',
-    'temperature',
-    'pressure',
+    'humidity', // relative %
+    'temperature', // celsius
+    'pressure', // millibars
     'freeheap',
     'uptime',
   ];
 
-  // {
-  //   -"blue": 21,
-  //   -"distance": 53,
-  //   -"freeheap": 265868,
-  //   -"green": 35,
-  //   -"humidity": 22,
-  //   -"lux": 21,
-  //   -"pressure": 1017,
-  //   -"red": 58,
-  //   -"temperature": 22,
-  //   -"timestamp": 1552881682,
-  //   -"uptime": 254
-  // },
   constructor(db: AngularFireDatabase) {
     const query = db.list('test/data', ref => ref.limitToLast(50));
     this.testData = query.valueChanges();
